@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Dark mode constants
   const DARK_MODE_ENABLED = "true";
-  const DARK_MODE_DISABLED = "false";
 
   // Search and filter elements
   const searchInput = document.getElementById("activity-search");
@@ -70,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isDarkMode) {
       localStorage.setItem("darkMode", DARK_MODE_ENABLED);
     } else {
-      localStorage.setItem("darkMode", DARK_MODE_DISABLED);
+      localStorage.removeItem("darkMode");
     }
     
     updateDarkModeToggle(isDarkMode);
