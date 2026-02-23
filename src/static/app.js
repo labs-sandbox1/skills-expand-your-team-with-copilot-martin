@@ -8,6 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const activityInput = document.getElementById("activity");
   const closeRegistrationModal = document.querySelector(".close-modal");
 
+  // Dark mode toggle elements
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
+  const themeIcon = darkModeToggle.querySelector(".theme-icon");
+  const themeText = darkModeToggle.querySelector("span:last-child");
+
   // Search and filter elements
   const searchInput = document.getElementById("activity-search");
   const searchButton = document.getElementById("search-button");
@@ -43,6 +48,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Authentication state
   let currentUser = null;
+
+  // Dark mode functions
+  function initializeDarkMode() {
+    // Check localStorage for saved preference
+    const savedTheme = localStorage.getItem("darkMode");
+    if (savedTheme === "enabled") {
+      document.body.classList.add("dark-mode");
+      updateDarkModeToggle(true);
+    }
+  }
+
+  function toggleDarkMode() {
+    const isDarkMode = document.body.classList.toggle("dark-mode");
+    
+    // Save preference to localStorage
+    if (isDarkMode) {
+      localStorage.setItem("darkMode", "enabled");
+    } else {
+      localStorage.removeItem("darkMode");
+    }
+    
+    updateDarkModeToggle(isDarkMode);
+  }
+
+  function updateDarkModeToggle(isDarkMode) {
+    if (isDarkMode) {
+      themeIcon.textContent = "☀️";
+      themeText.textContent = "Light Mode";
+    } else {
+      themeIcon.textContent = "🌙";
+      themeText.textContent = "Dark Mode";
+    }
+  }
+
+  // Event listener for dark mode toggle
+  darkModeToggle.addEventListener("click", toggleDarkMode);
 
   // Time range mappings for the dropdown
   const timeRanges = {
@@ -862,6 +903,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Initialize app
+  initializeDarkMode();
   checkAuthentication();
   initializeFilters();
   fetchActivities();
