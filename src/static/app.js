@@ -46,6 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Authentication state
   let currentUser = null;
 
+  // Helper function to escape HTML to prevent XSS
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   // Time range mappings for the dropdown
   const timeRanges = {
     morning: { start: "06:00", end: "08:00" }, // Before school hours
@@ -515,7 +522,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Create difficulty badge if difficulty is specified
     const difficultyBadgeHtml = details.difficulty
-      ? `<span class="difficulty-badge difficulty-${details.difficulty.toLowerCase()}">${details.difficulty}</span>`
+      ? `<span class="difficulty-badge difficulty-${escapeHtml(details.difficulty.toLowerCase())}">${escapeHtml(details.difficulty)}</span>`
       : "";
 
     // Create capacity indicator
