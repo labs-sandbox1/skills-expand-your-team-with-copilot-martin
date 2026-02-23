@@ -56,6 +56,7 @@ body.dark-mode {
   --border-focus: #444444;
 
   /* Feedback colors - adjusted for dark backgrounds */
+  /* Note: *-light variables are darker in dark mode for use as backgrounds */
   --success: #66bb6a;
   --success-light: #1b5e20;
   --warning: #ffa726;

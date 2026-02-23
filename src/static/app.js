@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Dark mode functions
   function initializeDarkMode() {
-    // Check localStorage for saved preference (presence indicates dark mode is enabled)
+    // Check localStorage for saved preference
     const savedTheme = localStorage.getItem(DARK_MODE_STORAGE_KEY);
-    if (savedTheme) {
+    if (savedTheme === "true") {
       document.body.classList.add("dark-mode");
       updateDarkModeToggle(true);
     }
