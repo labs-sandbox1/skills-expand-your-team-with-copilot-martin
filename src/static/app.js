@@ -472,6 +472,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Function to generate social sharing buttons
+  function generateSocialShareButtons(name, details) {
+    const formattedSchedule = formatSchedule(details);
+    const shareText = `Check out ${name} at Mergington High School! ${details.description} Schedule: ${formattedSchedule}`;
+    const shareUrl = window.location.href;
+    
+    // URL encode the text
+    const encodedText = encodeURIComponent(shareText);
+    const encodedUrl = encodeURIComponent(shareUrl);
+    
+    // Generate sharing URLs
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`;
+    const emailSubject = encodeURIComponent(`Join ${name} at Mergington High School`);
+    const emailBody = encodeURIComponent(`${shareText}\n\nLearn more: ${shareUrl}`);
+    const emailUrl = `mailto:?subject=${emailSubject}&body=${emailBody}`;
+    
+    return `
+      <div class="social-share-buttons">
+        <span class="share-label">Share:</span>
+        <a href="${twitterUrl}" target="_blank" rel="noopener noreferrer" class="share-button twitter-share" aria-label="Share on Twitter">
+          <span class="share-icon">🐦</span>
+        </a>
+        <a href="${facebookUrl}" target="_blank" rel="noopener noreferrer" class="share-button facebook-share" aria-label="Share on Facebook">
+          <span class="share-icon">📘</span>
+        </a>
+        <a href="${emailUrl}" class="share-button email-share" aria-label="Share via Email">
+          <span class="share-icon">📧</span>
+        </a>
+      </div>
+    `;
+  }
+
   // Function to render a single activity card
   function renderActivityCard(name, details) {
     const activityCard = document.createElement("div");
@@ -518,6 +551,9 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
     `;
+    
+    // Generate social sharing buttons
+    const socialShareButtons = generateSocialShareButtons(name, details);
 
     activityCard.innerHTML = `
       ${tagHtml}
@@ -528,6 +564,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="tooltip-text">Regular meetings at this time throughout the semester</span>
       </p>
       ${capacityIndicator}
+      ${socialShareButtons}
       <div class="participants-list">
         <h5>Current Participants:</h5>
         <ul>
