@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeText = darkModeToggle.querySelector(".theme-text");
 
   // Dark mode constants
-  const DARK_MODE_ENABLED = "true";
+  const DARK_MODE_STORAGE_KEY = "darkMode";
 
   // Search and filter elements
   const searchInput = document.getElementById("activity-search");
@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Dark mode functions
   function initializeDarkMode() {
-    // Check localStorage for saved preference
-    const savedTheme = localStorage.getItem("darkMode");
-    if (savedTheme === DARK_MODE_ENABLED) {
+    // Check localStorage for saved preference (presence indicates dark mode is enabled)
+    const savedTheme = localStorage.getItem(DARK_MODE_STORAGE_KEY);
+    if (savedTheme) {
       document.body.classList.add("dark-mode");
       updateDarkModeToggle(true);
     }
@@ -67,9 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Save preference to localStorage
     if (isDarkMode) {
-      localStorage.setItem("darkMode", DARK_MODE_ENABLED);
+      localStorage.setItem(DARK_MODE_STORAGE_KEY, "true");
     } else {
-      localStorage.removeItem("darkMode");
+      localStorage.removeItem(DARK_MODE_STORAGE_KEY);
     }
     
     updateDarkModeToggle(isDarkMode);
