@@ -11,7 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Dark mode toggle elements
   const darkModeToggle = document.getElementById("dark-mode-toggle");
   const themeIcon = darkModeToggle.querySelector(".theme-icon");
-  const themeText = darkModeToggle.querySelector("span:last-child");
+  const themeText = darkModeToggle.querySelector(".theme-text");
+
+  // Dark mode constants
+  const DARK_MODE_ENABLED = "true";
+  const DARK_MODE_DISABLED = "false";
 
   // Search and filter elements
   const searchInput = document.getElementById("activity-search");
@@ -53,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function initializeDarkMode() {
     // Check localStorage for saved preference
     const savedTheme = localStorage.getItem("darkMode");
-    if (savedTheme === "enabled") {
+    if (savedTheme === DARK_MODE_ENABLED) {
       document.body.classList.add("dark-mode");
       updateDarkModeToggle(true);
     }
@@ -64,9 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Save preference to localStorage
     if (isDarkMode) {
-      localStorage.setItem("darkMode", "enabled");
+      localStorage.setItem("darkMode", DARK_MODE_ENABLED);
     } else {
-      localStorage.removeItem("darkMode");
+      localStorage.setItem("darkMode", DARK_MODE_DISABLED);
     }
     
     updateDarkModeToggle(isDarkMode);
